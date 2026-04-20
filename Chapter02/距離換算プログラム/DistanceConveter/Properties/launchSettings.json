@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DistanceConveter": {
+      "commandName": "Project",
+      "commandLineArgs": "-tof\r\n"
+    }
+  }
+}

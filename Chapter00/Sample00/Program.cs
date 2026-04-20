@@ -4,13 +4,15 @@
     {
         static void Main(string[] args)
         {
-           
+            int i = 0;
+            while (i < 10)
             {
-                for (int i = 0; i < 10; i++)
-                {
-                    Console.WriteLine("Hello, World!");
-                }
+                Console.WriteLine("こんにちは");
+                i++;
             }
+            Console.WriteLine(i + "繰り返しました");
         }
     }
 }
+    
+
