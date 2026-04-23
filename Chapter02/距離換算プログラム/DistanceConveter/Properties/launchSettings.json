@@ -2,7 +2,7 @@
   "profiles": {
     "DistanceConveter": {
       "commandName": "Project",
-      "commandLineArgs": "-tof\r\n"
+      "commandLineArgs": "-tom\r\n\r\n\r\n"
     }
   }
 }
