@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter00", "Chapter00", "{DDB4EF12-CC4E-5E88-E6FC-71A802F4DE97}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample0416", "Chapter00\Sample00\Sample0416.csproj", "{C4161796-9A0D-433D-8D6A-F1EC7C9C4875}"
+	ProjectSection(ProjectDependencies) = postProject
+		{521551B8-6763-4E11-B418-846A90D124EA} = {521551B8-6763-4E11-B418-846A90D124EA}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sample0415", "Chapter00\sample0415\sample0415\sample0415.csproj", "{D0F00D84-AD20-C5D6-67FE-85D6CB59A7CE}"
 EndProject
