@@ -9,9 +9,25 @@ namespace SalesCalculator {
     public class SalesCounter {
         private readonly List<Sale>_sales;
         //コンストラクタ
-        public SalesCounter(List<Sale>sales) {
-            _sales=sales;
+        public SalesCounter(string filepath) {
+            _sales=ReadSales(filepath);
         }
+          public  List<Sale> ReadSales(string filepath) {
+            List<Sale> sales = new List<Sale>();//リスト
+            string[] lines = File.ReadAllLines(filepath);
+            foreach (string line in lines) {
+                string[] items = line.Split(',');//カンマ区切りで分割
+                Sale sale = new Sale {
+                    ShopName = items[0],
+                    ProductCategory = items[1],
+                    Amount = int.
+                    Parse(items[2])
+                };
+                sales.Add(sale);
+            }
+            return sales;
+        }
+
         //店舗別売り上げを求める
         public Dictionary<string, int> GetPerStoreSales() {
             Dictionary<string, int> dict = new Dictionary<string, int>();
