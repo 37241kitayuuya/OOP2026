@@ -12,12 +12,12 @@ namespace SalesCalculator {
         public SalesCounter(string filepath) {
             _sales=ReadSales(filepath);
         }
-          public  IEnumerable<Sale> ReadSales(string filepath) {
-            List<Sale> sales = new List<Sale>();//リスト
-            string[] lines = File.ReadAllLines(filepath);
-            foreach (string line in lines) {
-                string[] items = line.Split(',');//カンマ区切りで分割
-                Sale sale = new Sale {
+          public  List<Sale> ReadSales(string filepath) {
+            var sales = new List<Sale>();//リスト
+            var lines = File.ReadAllLines(filepath);
+            foreach (var line in lines) {
+                var items = line.Split(',');//カンマ区切りで分割
+                var sale = new Sale {
                     ShopName = items[0],
                     ProductCategory = items[1],
                     Amount = int.
