@@ -19,6 +19,8 @@ namespace Exercise01 {
             Song song = new Song(title, artistname, length);
 
             songs.Add(song);
+            PrintSongs(songs);
+
 
             //2.1.3
             /*var songs = new Song[] {
@@ -29,15 +31,15 @@ namespace Exercise01 {
                 new Song("I Will Always Love You", "Whitney Houston", 273),
                 
 
-            };
+            };*/
             PrintSongs(songs);
         }
-        private static void PrintSongs(Song[] songs) {
+        private static void PrintSongs(IEnumerable<Song> songs) {
             foreach(var song in songs) {
                 var minutes = song.Length / 60;
                 var seconds = song.Length % 60;
                 Console.WriteLine($"{song.Title},{song.ArtistName}{minutes}:{seconds:00}");
-            }*/
+            }
         }
     }
 }
