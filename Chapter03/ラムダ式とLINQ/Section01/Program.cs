@@ -1,27 +1,21 @@
 ﻿namespace Section01 {
     internal class Program {
-        
-        
+
         static void Main(string[] args) {
-            var numbers = new[] { 5, 3, 9, 6, 7, 5, 8, 1, 0, 5, 10, 4 };
-            
-            
-            var count = Count(numbers,n => n%4 == 0);
-            Console.WriteLine(count);
-        }
+            var cities = new List<string> {
+                "Tokyo",
+                "New Delhi",
+                "Bangkok",
+                "London",
+                "Paris",
+                "Berlin",
+                "Canberra",
+                "Hong Kong",
+            };
 
-  
-        
-        
-        static int Count(int[] numbers,Predicate<int> judge) { 
-            var count = 0;
-            foreach (var n in numbers) {
-                if (judge(n) == true) { 
-                    count++;
-                }
-            }
-            return count;
-        }
+            var exists = cities.FindAll(s => 6 <=s.Length && s.Contains('o') &&s.EndsWith('n'));
+            exists.ForEach(s => Console.WriteLine(s));
 
+        }
     }
 }
