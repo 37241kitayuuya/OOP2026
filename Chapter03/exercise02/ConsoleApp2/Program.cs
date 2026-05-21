@@ -28,22 +28,27 @@
             var name = Console.ReadLine();
             int index = cities.FindIndex(s => s.Equals(name));
             Console.WriteLine(index);
+            
 
         }
 
         private static void Exercise2_2(List<string> cities) {
             //できたらGitのコメント「問題3.2.2完成」
-
+            var count = cities.Count(s => s.Contains('o'));
+            Console.WriteLine(count);
         }
 
         private static void Exercise2_3(List<string> cities) {
             //できたらGitのコメント「問題3.2.3完成」
-
+            var selected = cities.Where(s => s.Contains('o')).ToArray();
+            foreach (var name in selected) {
+                Console.WriteLine(name);
+            }
         }
 
         private static void Exercise2_4(List<string> cities) {
             //できたらGitのコメント「問題3.2.4完成」
-
+            var 
         }
     }
 }
