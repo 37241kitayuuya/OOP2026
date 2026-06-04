@@ -23,11 +23,26 @@ namespace Exercise02 {
         }
 
         private static void Exercise2(YearMonth[] ymCollection) {
-          
+          foreach(var ym in ymCollection) {
+                Console.WriteLine(ym);
+            }
         }
+        //5.2.3
+        private static YearMonth? FindFirst21C(YearMonth[] ymCollection) {
+            foreach(var ym in ymCollection) {
+                if (ym.Is21Century) {
+                    return ym;
+                }
+            }
+            return null;
+        }
+        
 
         private static void Exercise4(YearMonth[] ymCollection) {
-            
+            YearMonth ym = new YearMonth(2025, 6);
+
+            YearMonth next = ym.Is21Century();
+            Console.WriteLine("21世紀のデータはありません");
         }
 
         private static void Exercise5(YearMonth[] ymCollection) {
