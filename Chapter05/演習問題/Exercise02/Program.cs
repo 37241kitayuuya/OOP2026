@@ -39,14 +39,17 @@ namespace Exercise02 {
         
 
         private static void Exercise4(YearMonth[] ymCollection) {
-            YearMonth ym = new YearMonth(2025, 6);
-
-            YearMonth next = ym.Is21Century();
-            Console.WriteLine("21世紀のデータはありません");
+            var ym = FindFirst21C(ymCollection);
+            if(ym is not null)
+            Console.WriteLine(ym);
+            else {
+                Console.WriteLine("21世紀のデータはありません");
+            }
         }
 
         private static void Exercise5(YearMonth[] ymCollection) {
-            
+            var array = ymCollection.Select(ym => ym.Add0neMonth()).ToArray();
+            Exercise2(array);
         }
     }
 }
