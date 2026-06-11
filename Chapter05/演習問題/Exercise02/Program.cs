@@ -12,7 +12,7 @@ namespace Exercise02 {
             };
 
             Console.WriteLine("5.2.2");
-            Exercise2(ymCollection);
+            Exercise2(ymCollection);9
 
             Console.WriteLine("5.2.4");
             Exercise4(ymCollection);
