@@ -19,12 +19,12 @@ namespace DistanceConveter
         }
 
         //フィートからメートルを求める
-        public double FromMeter(double mater)
+        public static double FromMeter(double mater)
         {
             return mater / 0.3048;
         }
         //メートルからフィートを求める
-        public double ToFeet(double feet)
+        public static double ToFeet(double feet)
         {
             return feet * 0.3048;
         }
