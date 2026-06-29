@@ -30,7 +30,9 @@
                 pre0fficeDict.Add(pref, prefCaptalLocation);
                 foreach(var item in pre0fficeDict) {
                 }
-            } while (true) {
+            }
+            Boolean endFlag = false; //終了フラグ
+            while (true) {
                 int menu = menuDisp();
 
                 switch (menu) {
@@ -43,6 +45,7 @@
                         break;
 
                     case 9:
+                        endFlag = true;
                         return;
 
                     default:
