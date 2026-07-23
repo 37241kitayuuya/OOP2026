@@ -138,8 +138,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsApp1", "Formapps\Wi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarReportSystem", "..\..\..\Desktop\CarReportSystem\CarReportSystem.csproj", "{A00BDC88-016E-BD60-355A-15DAF16E2AB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarReportSystem", "..\..\..\Desktop\FormApps\CarReportSystem\CarReportSystem.csproj", "{3F649082-714B-5A52-AB13-424413A8F5FE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -302,10 +300,6 @@ Global
 		{A00BDC88-016E-BD60-355A-15DAF16E2AB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A00BDC88-016E-BD60-355A-15DAF16E2AB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A00BDC88-016E-BD60-355A-15DAF16E2AB5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3F649082-714B-5A52-AB13-424413A8F5FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3F649082-714B-5A52-AB13-424413A8F5FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3F649082-714B-5A52-AB13-424413A8F5FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3F649082-714B-5A52-AB13-424413A8F5FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -367,7 +361,6 @@ Global
 		{86765351-27BE-73C7-B234-A26B8B9D25F7} = {C870E8B1-79C5-490B-822D-EE75FA650E8F}
 		{8FB38E6E-5874-4638-9AC5-FCD7B159B2C2} = {B6589D7D-D7B3-4675-8A0B-64C7F7BE4B5E}
 		{A00BDC88-016E-BD60-355A-15DAF16E2AB5} = {B6589D7D-D7B3-4675-8A0B-64C7F7BE4B5E}
-		{3F649082-714B-5A52-AB13-424413A8F5FE} = {B6589D7D-D7B3-4675-8A0B-64C7F7BE4B5E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {070AAF85-001F-4001-9160-25E25897BD7A}
