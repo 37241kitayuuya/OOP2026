@@ -1,14 +1,10 @@
-﻿namespace Test01_01 {
+namespace Test01_01 {
     public class Student {
-        internal static int score;
 
-        public string Name { get;private set; } = string.Empty;
-            
-            public string Subject { get;private set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
-            public int Score { get; private set; } 
+        public string Subject { get; set; } = string.Empty;
+
+        public int Score { get; set; }
     }
-   
-
-    }
-
+}
