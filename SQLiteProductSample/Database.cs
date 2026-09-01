@@ -10,7 +10,7 @@ public static class Database
 
     //SQLiteへ接続するための接続文字列
     private static readonly string connectionString =
-     $"Date Source={DatabasePath}";
+     $"Data Source={DatabasePath}";
 
     //DBファイルの保存場所を外部から確認するための読み取りプロパティ
     public static string FilePath => DatabasePath;
@@ -33,10 +33,10 @@ public static class Database
         //IF NOT EXISTS により、既にテーブルがあってもエラーにならない
         command.CommandText =
             """
-            CREATE TABLE IF NOT EXISTS Products(
-                Id      INTEGER PROMARY KEY AUTOINCREMENT,
-                Name    TEXT NOT NULL,
-                Price   INTEGER NOT NULL CHECK <Price >= 0)
+            CREATE TABLE IF NOT EXISTS Products (
+                Id    INTEGER PRIMARY KEY AUTOINCREMENT,
+                Name  TEXT NOT NULL,
+                Price INTEGER NOT NULL CHECK (Price >= 0)
             );
             """;
 
