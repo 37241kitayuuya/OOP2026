@@ -28,7 +28,7 @@ namespace CarReportSystem {
             }
             catch (Exception ex) {
                 tsslbMessage.Text = "設定ファイル読み込みエラー";
-                Message.Show(ex.Message);//より具体的なエラーを出力
+                MessageBox.Show(ex.Message);//より具体的なエラーを出力
             }
         }
 
@@ -249,7 +249,7 @@ namespace CarReportSystem {
             reportSaveFile();
         }
         private void 開くToolStripMenuItem_Click(object sender, EventArgs e) {
-
+            reportOpenFile();
         }
         //ファイルセーブ処理
         private void reportSaveFile() {
@@ -260,21 +260,18 @@ namespace CarReportSystem {
                     var bf = new BinaryFormatter();
 #pragma warning restore SYSLIB0011
                     using (FileStream fs = File.Open(
-                        ofdPicFileOpen.FileName,
-                        FileMode.Open,
-                        FileAccess.Read)) {
-
-                        listCarReports = BindingList < CarReport > bf.Deserialize(fs);
-                        dgvRecords.DataSource = listCarReports;
+                        sfdReportFileSave.FileName,
+                       FileMode.Create)) {
+                        bf.Serialize(fs, listCarReports);
                     }
                     //コンボボックスの履歴を消す
-                    cbAuthor.Items.Clear();
-                    cbCarName.Items.Clear();
+                   // cbAuthor.Items.Clear();
+                   // cbCarName.Items.Clear();
 
                     //コンボボックスの履歴を再登録
-                    foreach (var report in listCarReports) {
+                   // foreach (var report in listCarReports) {
 
-                    }
+                   // }
 
                 }
                 catch (Exception ex) {
