@@ -61,7 +61,7 @@ public class ProductRepository {
             """;
 
         command.Parameters.AddWithValue("$name", name);
-        command.Parameters.AddWithValue("$Price", price);
+        command.Parameters.AddWithValue("$price", price);
 
         //一つの値を返すSQLを実行
         var result = command.ExecuteScalar();
@@ -72,7 +72,7 @@ public class ProductRepository {
         //SQLLiteのINTRGERはlongとして帰るため,intへ変換する。
         return Convert.ToInt32((long)result);
     }
-    public int Update(Product product) {
+    public void Update(Product product) {
         //接続オブジェクトを生成
         using var connection = Database.GetConnection();
 
@@ -87,22 +87,22 @@ public class ProductRepository {
             """
             UPDATE Products
             SET Name =$name,
-                price =$price
-                WHRER Id =$id;
+                Price =$price
+                WHERE Id =$id;
             """;
 
         command.Parameters.AddWithValue("$name",product.Name);
-        command.Parameters.AddWithValue("$Price",product .price);
-        command.Parameters.AddWithValue("id", product.Id);
+        command.Parameters.AddWithValue("$price",product .price);
+        command.Parameters.AddWithValue("$id", product.Id);
 
         //更新件数が０なら対象が存在しない
         if (command.ExecuteNonQuery() == 0)
             throw new InvalidOperationException("修正対象の商品が見つかりませんでした。");
         //一つの値を返すSQLを実行
-        var result = command.ExecuteScalar();
+        //var result = command.ExecuteScalar();
 
-        if (result is null)
-            throw new InvalidOperationException("登録した商品のIDが取得できませんでした");
+        //if (result is null)
+            //throw new InvalidOperationException("登録した商品のIDが取得できませんでした");
 
        
     }
@@ -118,7 +118,7 @@ public class ProductRepository {
             DELETE FROM Products
             WHERE Id = $id;
             """;
-        command.Parameters.AddWithValue("$id,id");
+        command.Parameters.AddWithValue("$id",id);
         command.ExecuteNonQuery();
     }
     }
