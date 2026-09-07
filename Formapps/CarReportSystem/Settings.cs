@@ -12,7 +12,7 @@ namespace CarReportSystem {
 
         private const string FileName = "setting.xml";
         //唯一のSettingオブジェクト
-       private static Settings _instance = new Settings();
+        private static Settings _instance = new Settings();
 
         //メイン画面に設定した色情報
         public int mainFormBackColor { get; set; }
@@ -31,7 +31,7 @@ namespace CarReportSystem {
             using var reader = XmlReader.Create(FileName);
             var serializer = new XmlSerializer(typeof(SettingsDate));
 
-            if(serializer.Deserialize(reader)is SettingsDate date) {
+            if (serializer.Deserialize(reader) is SettingsDate date) {
                 mainFormBackColor = date.MainFromBackColor;
             }
         }
@@ -45,11 +45,12 @@ namespace CarReportSystem {
             using var writer = XmlWriter.Create(FileName);
             var serializer = new XmlSerializer(typeof(SettingsDate));
             serializer.Serialize(writer, date);
-        }   }
+        }
+    }
 
     public class SettingsDate {
         public int MainFromBackColor { get; set; }
 
-        
+
     }
 }

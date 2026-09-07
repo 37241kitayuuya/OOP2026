@@ -252,8 +252,8 @@ namespace CarReportSystem {
             reportOpenFile();
         }
         //ファイルセーブ処理
-        private void reportSaveFile() {          
-                try {
+        private void reportSaveFile() {
+            try {
                 sfdReportFileSave.Title = "名前を付けて保存";
                 sfdReportFileSave.Filter =
                     "カーレポートファイル (*.crf)|*.crf|すべてのファイル (*.*)|*.*";
@@ -279,17 +279,19 @@ namespace CarReportSystem {
 
                     //コンボボックスの履歴を再登録
                     // foreach (var report in listCarReports) {
- }
-
-
-
-                }catch (Exception ex) {
-                    tsslbMessage.Text = "ファイル書き出しエラー";
-                    MessageBox.Show(ex.Message);
                 }
-            }
 
-        
+
+
+
+            }
+            catch (Exception ex) {
+                tsslbMessage.Text = "ファイル書き出しエラー";
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
 
         //ファイルオープン処理
         private void reportOpenFile() {
@@ -331,7 +333,7 @@ namespace CarReportSystem {
         }
 
         private void 保存ToolStripMenuItem_Click_1(object sender, EventArgs e) {
-            
+
             reportSaveFile();
 
         }
