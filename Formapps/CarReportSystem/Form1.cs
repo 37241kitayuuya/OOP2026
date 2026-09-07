@@ -252,34 +252,44 @@ namespace CarReportSystem {
             reportOpenFile();
         }
         //ファイルセーブ処理
-        private void reportSaveFile() {
-            if (sfdReportFileSave.ShowDialog() == DialogResult.OK) {
+        private void reportSaveFile() {          
                 try {
-                    //バイナリ形式でシリアル化
+                sfdReportFileSave.Title = "名前を付けて保存";
+                sfdReportFileSave.Filter =
+                    "カーレポートファイル (*.crf)|*.crf|すべてのファイル (*.*)|*.*";
+                sfdReportFileSave.DefaultExt = "crf";
+                sfdReportFileSave.AddExtension = true;
+
+                if (sfdReportFileSave.ShowDialog() == DialogResult.OK) {
+                    tsslbMessage.Text = "保存をキャンセルしました";
+                    return;
 #pragma warning disable SYSLIB0011
                     var bf = new BinaryFormatter();
 #pragma warning restore SYSLIB0011
                     using (FileStream fs = File.Open(
                         sfdReportFileSave.FileName,
                        FileMode.Create)) {
+
                         bf.Serialize(fs, listCarReports);
                     }
+                    tsslbMessage.Text = "ファイルを保存しました";
                     //コンボボックスの履歴を消す
-                   // cbAuthor.Items.Clear();
-                   // cbCarName.Items.Clear();
+                    // cbAuthor.Items.Clear();
+                    // cbCarName.Items.Clear();
 
                     //コンボボックスの履歴を再登録
-                   // foreach (var report in listCarReports) {
+                    // foreach (var report in listCarReports) {
+ }
 
-                   // }
 
-                }
-                catch (Exception ex) {
+
+                }catch (Exception ex) {
                     tsslbMessage.Text = "ファイル書き出しエラー";
                     MessageBox.Show(ex.Message);
                 }
             }
-        }
+
+        
 
         //ファイルオープン処理
         private void reportOpenFile() {
@@ -318,6 +328,12 @@ namespace CarReportSystem {
 
 
             }
+        }
+
+        private void 保存ToolStripMenuItem_Click_1(object sender, EventArgs e) {
+            
+            reportSaveFile();
+
         }
     }
 }
