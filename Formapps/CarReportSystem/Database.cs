@@ -10,7 +10,7 @@ namespace CarReportSystem {
     public static class Database {
         //ＤＢファイルの保存場所
         private static readonly string DatabasePath =
-            Path.Combine(AppContext.BaseDirectory, "products.db");
+            Path.Combine(AppContext.BaseDirectory, "carreport.db");
 
         //SQLiteへ接続するための接続文字列
         private static readonly string connectionString =
@@ -38,9 +38,13 @@ namespace CarReportSystem {
             command.CommandText =
                 """
             CREATE TABLE IF NOT EXISTS Products (
-                Id    INTEGER PRIMARY KEY AUTOINCREMENT,
-                Name  TEXT NOT NULL,
-                Price INTEGER NOT NULL CHECK (Price >= 0)
+                Id      INTEGER PRIMARY KEY AUTOINCREMENT,
+                Date    TEXT    NOT NULL,
+                Author  TEXT    NOT NULL,
+                Maker   INTEGER NOT NULL,
+                CarName TEXT    NOT NULL,
+                Report  TEXT    NOT NULL,
+                Picture BLOB
             );
             """;
 
