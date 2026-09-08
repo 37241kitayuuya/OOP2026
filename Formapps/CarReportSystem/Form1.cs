@@ -260,7 +260,7 @@ namespace CarReportSystem {
                 sfdReportFileSave.DefaultExt = "crf";
                 sfdReportFileSave.AddExtension = true;
 
-                if (sfdReportFileSave.ShowDialog() == DialogResult.OK) {
+                if (sfdReportFileSave.ShowDialog() != DialogResult.OK) {
                     tsslbMessage.Text = "•Û‘¶‚ðƒLƒƒƒ“ƒZƒ‹‚µ‚Ü‚µ‚½";
                     return;
 #pragma warning disable SYSLIB0011
