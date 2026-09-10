@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml;
 using System.Xml.Serialization;
 using static CarReportSystem.CarReport;
@@ -246,95 +245,16 @@ namespace CarReportSystem {
 
 
         private void 保存ToolStripMenuItem_Click(object sender, EventArgs e) {
-            reportSaveFile();
+           
         }
         private void 開くToolStripMenuItem_Click(object sender, EventArgs e) {
-            reportOpenFile();
+            
         }
-        //ファイルセーブ処理
-        private void reportSaveFile() {
-            try {
-                sfdReportFileSave.Title = "名前を付けて保存";
-                sfdReportFileSave.Filter =
-                    "カーレポートファイル (*.crf)|*.crf|すべてのファイル (*.*)|*.*";
-                sfdReportFileSave.DefaultExt = "crf";
-                sfdReportFileSave.AddExtension = true;
-
-                if (sfdReportFileSave.ShowDialog() != DialogResult.OK) {
-                    tsslbMessage.Text = "保存をキャンセルしました";
-                    return;
-#pragma warning disable SYSLIB0011
-                    var bf = new BinaryFormatter();
-#pragma warning restore SYSLIB0011
-                    using (FileStream fs = File.Open(
-                        sfdReportFileSave.FileName,
-                       FileMode.Create)) {
-
-                        bf.Serialize(fs, listCarReports);
-                    }
-                    tsslbMessage.Text = "ファイルを保存しました";
-                    //コンボボックスの履歴を消す
-                    // cbAuthor.Items.Clear();
-                    // cbCarName.Items.Clear();
-
-                    //コンボボックスの履歴を再登録
-                    // foreach (var report in listCarReports) {
-                }
-
-
-
-
-            }
-            catch (Exception ex) {
-                tsslbMessage.Text = "ファイル書き出しエラー";
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-
-
-        //ファイルオープン処理
-        private void reportOpenFile() {
-            if (ofdReportFileOpen.ShowDialog() == DialogResult.OK) {
-                try {
-                    //逆シリアル化でバイナリ形式を取り込む
-#pragma warning disable SYSLIB0011
-                    var bf = new BinaryFormatter();
-#pragma warning restore SYSLIB0011
-                    using (FileStream fs = File.Open(
-                        ofdReportFileOpen.FileName, //ファイル名
-                        FileMode.Open,  //ファイルモード
-                        FileAccess.Read //アクセス
-                        )) {
-
-                        listCarReports = (BindingList<CarReport>)bf.Deserialize(fs);
-                        dgvRecords.DataSource = listCarReports;
-                    }
-                    //コンボボックスの履歴をすべて消す
-                    cbAuthor.Items.Clear();
-                    cbCarName.Items.Clear();
-
-                    //コンボボックスの履歴を再登録
-                    foreach (var report in listCarReports) {
-                        SetCbAuthor(report.Author);
-                        SetCbCarName(report.CarName);
-                    }
-                }
-                catch (Exception ex) {
-                    tsslbMessage.Text = "ファイル読み出しエラー";
-                    MessageBox.Show(ex.Message);
-
-
-
-                }
-
-
-            }
-        }
+        
 
         private void 保存ToolStripMenuItem_Click_1(object sender, EventArgs e) {
 
-            reportSaveFile();
+            
 
         }
     }
