@@ -1,3 +1,4 @@
+using SQLiteProductSample;
 using System.ComponentModel;
 using System.Xml;
 using System.Xml.Serialization;
@@ -7,15 +8,16 @@ namespace CarReportSystem {
     public sealed partial class Form1 : Form {
 
         //カーレポート管理用リスト
-        BindingList<CarReport> listCarReports = new BindingList<CarReport>();
-
+        private readonly BindingList<CarReport>  _carrepots = new ();
+        // DB操作を担当するRepository
+        private readonly CarReportRepository _repository = new();
         //設定クラスのオブジェクトを生成
         // Settings settings = Settings.Instance;
 
 
         public Form1() {
             InitializeComponent();
-            dgvRecords.DataSource = listCarReports;
+            dgvRecords.DataSource = _carrepots;
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -75,16 +77,29 @@ namespace CarReportSystem {
                 Report = tbReport.Text,
                 Picture = pbPicture.Image,
             };
-            listCarReports.Add(carReport);
-
+            _repository.Add(carReport);//データベースへ書き出し
+            ReloadProducts();//データベースからすべてのデータを読み出し
             //入力履歴を登録
-            SetCbAuthor(cbAuthor.Text.Trim());
-            SetCbCarName(cbCarName.Text.Trim());
+            //SetCbAuthor(cbAuthor.Text.Trim());
+            //SetCbCarName(cbCarName.Text.Trim());
 
             dgvRecords.ClearSelection(); //セルの選択を解除する
             InputItemsUpdate(); //データグリッドビューを更新したら呼ぶメソッド
         }
+        private void ReloadProducts() {
+            _carrepots.Clear();
 
+            cbAuthor.Items.Clear();
+            cbCarName.Items.Clear();
+            
+            foreach (var carReport in _repository.GetAll()) {
+                _carrepots.Add(carReport);
+
+                SetCbAuthor(carReport.Author);
+                SetCbCarName(carReport.CarName);
+            }
+            dgvRecords.ClearSelection();
+        }
         private MakerGroup GetRadioButtonMaker() {
             if (rbToyota.Checked)
                 return MakerGroup.トヨタ;
@@ -151,24 +166,25 @@ namespace CarReportSystem {
         //車名の入力履歴をコンボボックスへ登録（重複なし）
         private void SetCbCarName(string carName) {
             //未登録なら登録【登録済みなら何もしない】
-            if (!cbCarName.Items.Contains(cbAuthor))
-                cbCarName.Items.Add(cbAuthor);
+            if (!cbCarName.Items.Contains(carName))
+                cbCarName.Items.Add(carName);
 
         }
         private void btDeletePicture_Click(object sender, EventArgs e) {
             pbPicture.Image = null;
         }
         private void btDeleteRecord_Click(object sender, EventArgs e) {
-            if ((dgvRecords.CurrentRow is null)
-                || (!dgvRecords.CurrentRow.Selected)) return;
-
-            //削除したいインデックスを指定してリストから削除
             if (dgvRecords.CurrentRow?.DataBoundItem is not CarReport carReport) {
                 tsslbMessage.Text = "削除するレポートを選択してください";
                 return;
             }
-            listCarReports.Remove(carReport);
-            InputItemsUpdate(); //データグリッドビューを更新したら呼ぶメソッド
+            // DBから削除
+            _repository.Delete(carReport.Id);
+            // DBから再読み込み
+            ReloadProducts();
+            // 入力欄をクリア
+            InputItemsAllClear();
+            tsslbMessage.Text = "レポートを削除しました";
         }
         //データグリッドビューを更新したら呼ぶメソッド
         private void InputItemsUpdate() {
@@ -190,12 +206,12 @@ namespace CarReportSystem {
 
 
             //カーレポート管理用リストの該当する要素のデータを書き換える
-            listCarReports[dgvRecords.CurrentRow.Index].Date = dtpDate.Value.Date;
-            listCarReports[dgvRecords.CurrentRow.Index].Author = cbAuthor.Text.Trim();
-            listCarReports[dgvRecords.CurrentRow.Index].Maker = GetRadioButtonMaker();
-            listCarReports[dgvRecords.CurrentRow.Index].CarName = cbCarName.Text.Trim();
-            listCarReports[dgvRecords.CurrentRow.Index].Report = tbReport.Text;
-            listCarReports[dgvRecords.CurrentRow.Index].Picture = pbPicture.Image;
+            _carrepots[dgvRecords.CurrentRow.Index].Date = dtpDate.Value.Date;
+            _carrepots[dgvRecords.CurrentRow.Index].Author = cbAuthor.Text.Trim();
+            _carrepots[dgvRecords.CurrentRow.Index].Maker = GetRadioButtonMaker();
+            _carrepots[dgvRecords.CurrentRow.Index].CarName = cbCarName.Text.Trim();
+            _carrepots[dgvRecords.CurrentRow.Index].Report = tbReport.Text;
+            _carrepots[dgvRecords.CurrentRow.Index].Picture = pbPicture.Image;
 
             SetCbAuthor(cbAuthor.Text.Trim());
             SetCbCarName(cbCarName.Text.Trim());

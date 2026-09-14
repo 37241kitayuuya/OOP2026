@@ -9,6 +9,8 @@ namespace CarReportSystem {
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             try {
+
+                //CarReportsƒe[ƒuƒ‹ì¬
                 Database.Intializa();
                 Application.Run(new Form1());
             }
