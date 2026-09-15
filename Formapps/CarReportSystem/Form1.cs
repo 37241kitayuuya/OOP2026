@@ -204,14 +204,31 @@ namespace CarReportSystem {
                 return;
             }
 
+            // 選択されているレポートを取得
+            var carReport = _carrepots[dgvRecords.CurrentRow.Index];
 
-            //カーレポート管理用リストの該当する要素のデータを書き換える
-            _carrepots[dgvRecords.CurrentRow.Index].Date = dtpDate.Value.Date;
-            _carrepots[dgvRecords.CurrentRow.Index].Author = cbAuthor.Text.Trim();
-            _carrepots[dgvRecords.CurrentRow.Index].Maker = GetRadioButtonMaker();
-            _carrepots[dgvRecords.CurrentRow.Index].CarName = cbCarName.Text.Trim();
-            _carrepots[dgvRecords.CurrentRow.Index].Report = tbReport.Text;
-            _carrepots[dgvRecords.CurrentRow.Index].Picture = pbPicture.Image;
+            // 入力内容を変更
+            carReport.Date = dtpDate.Value.Date;
+            carReport.Author = cbAuthor.Text.Trim();
+            carReport.Maker = GetRadioButtonMaker();
+            carReport.CarName = cbCarName.Text.Trim();
+            carReport.Report = tbReport.Text;
+            carReport.Picture = pbPicture.Image;
+
+            // DBへ保存
+            _repository.Update(carReport);
+
+            // DBから再読み込み
+            ReloadProducts();
+
+            // 入力履歴を更新
+            SetCbAuthor(carReport.Author);
+            SetCbCarName(carReport.CarName);
+
+            dgvRecords.ClearSelection();
+
+            tsslbMessage.Text = "レポートを修正しました";
+
 
             SetCbAuthor(cbAuthor.Text.Trim());
             SetCbCarName(cbCarName.Text.Trim());

@@ -91,9 +91,19 @@ public class CarReportRepository {
         command.Parameters.AddWithValue("$author", report.Author);
         command.Parameters.AddWithValue("$maker", (int)report.Maker);
         command.Parameters.AddWithValue("$carName", report.CarName);
-        command.Parameters.AddWithValue("$report", report.Report); 
+        command.Parameters.AddWithValue("$report", report.Report);
+        // ‰æ‘œ‚ğbyte[]‚Ö•ÏŠ·
         byte[]? pictureData = ImageToBytes(report.Picture);
-        command.Parameters.AddWithValue("$picture", pictureData ?? (object)DBNull.Value);
+        // SQLite‚ÌBLOB‚Æ‚µ‚Ä“o˜^
+        var pictureParameter =
+            command.Parameters.Add("$picture", SqliteType.Blob);
+        if (pictureData is null) {
+            // ‰æ‘œ‚È‚µ ¨ SQLite‚ÌNULL
+            pictureParameter.Value = DBNull.Value;
+        } else {
+            // ‰æ‘œ‚ ‚è ¨ BLOB
+            pictureParameter.Value = pictureData;
+        }
     }
 
     public void Delete(int id) {
