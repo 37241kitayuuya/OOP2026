@@ -1,0 +1,15 @@
+﻿@*このviewがProduct型を受け取る宣言*@
+@model  List<MvcBasicSample.Models.Product>;
+@{
+    ViewData["Title"] = "商品情報";//タブ用のタイトル  
+}
+
+<h1>商品情報</h1>
+<ul>
+    @foreach(var product in Model){
+    <li>@product.name @product.price</li>   
+    }
+    
+    </ul>
+
+
