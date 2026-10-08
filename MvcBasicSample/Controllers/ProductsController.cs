@@ -6,7 +6,7 @@ namespace MvcBasicSample.Controllers;
 public class ProductsController: Controller {
     private readonly AppDbcontext _db;//DBへ問い合わせるためのフィールド
 
-   //ASP.NET coreから必要な
+    //ASP.NET coreから必要な
     public ProductsController(AppDbcontext db) {
         _db = db;
     }
