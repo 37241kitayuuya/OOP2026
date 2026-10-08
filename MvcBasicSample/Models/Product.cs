@@ -9,5 +9,6 @@ namespace MvcBasicSample.Models;
         [Required]//必須項目
         public string name { get; set; } = string.Empty;
         public int price { get; set; }
-    }
+   　　 public int Stock { get; set; }
+}
 
