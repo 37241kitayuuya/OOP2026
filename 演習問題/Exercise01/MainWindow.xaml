@@ -6,8 +6,24 @@
         xmlns:local="clr-namespace:Exercise01"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-  <StackPanel Orientation="Vertical"> 
-  <Button Content="ファイル選択" Click="Button_Click"/>
-        <TextBox x:Name="TextArea" TextWrapping="Wrap" Height="400" TextChanged="TextArea_TextChanged"/>
-    </StackPanel>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Grid.Column="0" Content="ファイル選択" Click="Button_Click"/>
+        <TextBox Grid.Column="0" Grid.ColumnSpan="2" x:Name="TextArea" TextWrapping="Wrap" Height="400" TextChanged="TextArea_TextChanged" Margin="0,72,0,-38" Grid.RowSpan="2"/>
+    </Grid>
+
+
+
+
 </Window>

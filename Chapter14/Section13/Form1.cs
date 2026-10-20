@@ -7,8 +7,6 @@ namespace Section13 {
         }
 
         private async void button1_Click(object sender, EventArgs e) {
-        
-            var elapased  
 
             // Thread.Sleep(5000);
             // MessageBox.Show("Š®—¹");
@@ -26,7 +24,7 @@ namespace Section13 {
             })
             ;
         }
-        private async Task<long> 
+        private async Task<long>
 
     }
 }

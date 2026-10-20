@@ -21,7 +21,7 @@ namespace Exercise01 {
             InitializeComponent();
         }
 
-        private async Task Button_Click(object sender, RoutedEventArgs e) {
+        private async void Button_Click(object sender, RoutedEventArgs e) {
             var ofd = new OpenFileDialog();
             if (ofd.ShowDialog() is true) {
                 TextArea.Text = await TextReaderSmple.ReadTextAsync(ofd.FileName);
@@ -39,12 +39,10 @@ namespace Exercise01 {
             var sb = new StringBuilder();                                                                                 
             var sr = new StreamReader(fileName);
             //ここに非同期でテキストファイルを読み込む処理を記述する
-            string line;
-            while ((line = await sr.ReadLineAsync()) != null) {
-                sb.AppendLine(line);
+            while (!sr.EndOfStream) {
+                var line = sr.ReadLineAsync();
+                sb.AppendLine(await line);
             }
-
-            sr.Close();
 
 
 
