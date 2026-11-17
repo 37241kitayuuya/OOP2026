@@ -1,99 +1,117 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
-@*Controllerから受け取るデータの型*@
-@model SelfOrderSystem.ViewModels.MenuViewModel
+﻿@model SelfOrderSystem.ViewModels.MenuViewModel
 
 @{
-    ViewData["Title"] = "メニュー";
+    ViewData["Title"] = "お食事メニュー";
 }
 
-<h1 class="h3 mb-3">メニュー</h1>
-<div class="d-flex gap-2 overflow-auto pb-3">
-    <a class="btn @(Model.SelectedCategoryId == null ? "btn-dark" : "btn-outline-dark")" asp-action="Index">すべて</a>
-    @foreach (var category in Model.Categories) {
-        <a class="btn @(Model.SelectedCategoryId == category.Id ? "btn-dark" : "btn-outline-dark")"
-           asp-action="Index"
-           asp-route-categoryId="@category.Id">
-            @category.Name
-        </a>
+<div class="so-menu-page">
+
+    @* メニュー画面のヘッダー *@
+    <header class="so-menu-header">
+        <span>お食事メニュー</span>
+        <span aria-hidden="true">🛒</span>
+    </header>
+
+    @* エラーメッセージ *@
+    @if (TempData["Error"] is string error) {
+        <div class="alert alert-danger m-3">
+            @error
+        </div>
     }
-</div>
 
-@* 商品一覧より上へ追加する：CartController から渡されたエラーがあれば表示する *@
-@if (TempData["Error"] is string errorMessage) {
-    <div class="alert alert-danger">@errorMessage</div>
-}
-
-<div class="row g-4">
-    @*左側商品一覧*@
-    <div class="col-12 col-lg-9">
-        <div class="row g-3">
-            @foreach (var product in Model.Products) {
-                <div class="col-12 col-md-6 col-xl-4">
-                    <div class="card h-100 shadow-sm">
-                        @if (!string.IsNullOrWhiteSpace(product.ImagePath)) {
-                            <img src="@Url.Content(product.ImagePath)" class="so-product-photo" alt="@product.Name" loading="lazy" />
-                        } else {
-                            <div class="so-product-photo so-product-photo--empty">写真準備中</div>
-                        }
-                        <div class="card-body d-flex flex-column">
-                            <h2 class="h5">@product.Name</h2>
-                            <p class="text-muted flex-grow-1">@product.Description</p>
-                            <p class="fs-5 fw-bold">@product.Price.ToString("N0") 円</p>
-                            @* @if (product.IsSoldOut) {
-                        <span class="badge text-bg-secondary">売り切れ</span>
-                    } *@
-
-                            <form asp-controller="Cart" asp-action="Add" method="post">
-                                <input type="hidden" name="productId" value="@product.Id" />
-                                @if (product.IsSoldOut) {
-                                    <button class="btn btn-secondary w-100" disabled>売り切れ</button>
-                                } else {
-                                    <button class="btn btn-primary w-100" type="submit">カートに追加</button>
-                                }
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-    @*右側カート概要*@
-    <div class="col-12 col-lg-3">
-        <aside class="card so-cart-sidebar">
-            <div class="card-body">
-                <h2 class=" h5">カート</h2>
-                <p>@Model.CartItemCount 点</p>
-                <p class="fw-bold">合計 @Model.CartTotal.ToString("N0")円</p>
-                <a asp-controller="Cart" asp-action="Index" class="btn btn-primary w-100">カートを確認</a>
-            </div>
-        </aside>
-    </div>
-</div>
-
-
-
-@* カートに商品があるときだけ合計数量・合計金額・リンクを表示する *@
-@if (Model.CartItemCount > 0) {
-    <div class="mobile-cart-bar">
-
-        <div class="mobile-cart-info">
-            <span class="mobile-cart-count">
-                @Model.CartItemCount 点
-            </span>
-
-            <span class="mobile-cart-total">
-                @Model.CartTotal.ToString("N0") 円
-            </span>
-        </div>
-
-        <a class="btn mobile-cart-button"
-           asp-controller="Cart"
-           asp-action="Index">
-            注文内容を確認
+    @* カテゴリを選択 *@
+    <nav class="so-menu-categories">
+        <a asp-action="Index"
+           class="@(Model.SelectedCategoryId == null ? "active" : "")">
+            すべて
         </a>
 
+        @foreach (var category in Model.Categories) {
+            <a asp-action="Index"
+               asp-route-categoryId="@category.Id"
+               class="@(Model.SelectedCategoryId == category.Id ? "active" : "")">
+                @category.Name
+            </a>
+        }
+    </nav>
+
+    @* 商品一覧 *@
+    <div class="so-menu-products">
+
+        @foreach (var product in Model.Products) {
+            <article class="so-menu-product">
+
+                @* 商品写真 *@
+                @if (!string.IsNullOrWhiteSpace(product.ImagePath)) {
+                    <img src="@product.ImagePath"
+                         alt="@product.Name"
+                         class="so-menu-photo" />
+                } else {
+                    <div class="so-menu-photo so-menu-photo-empty">
+                        写真なし
+                    </div>
+                }
+
+                @* 商品名・説明・価格 *@
+                <div class="so-menu-info">
+                    <h2>@product.Name</h2>
+
+                    <p>@product.Description</p>
+
+                    <strong>
+                        ¥@product.Price.ToString("N0")
+                    </strong>
+                </div>
+
+                @* カート追加ボタン *@
+                <form asp-controller="Cart"
+                      asp-action="Add"
+                      method="post">
+
+                    <input type="hidden"
+                           name="productId"
+                           value="@product.Id" />
+
+                    @if (product.IsSoldOut) {
+                        <button type="button"
+                                class="so-menu-add"
+                                disabled>
+                            売り切れ
+                        </button>
+                    } else {
+                        <button type="submit"
+                                class="so-menu-add">
+                            追加 ＋
+                        </button>
+                    }
+                </form>
+
+            </article>
+        }
     </div>
-}
+
+    @* カート概要 *@
+    <section class="so-menu-cart">
+
+        <div class="so-menu-cart-summary">
+            <div>
+                <strong>
+                    カート @Model.CartItemCount 点
+                </strong>
+                <small>現在の合計</small>
+            </div>
+
+            <strong class="so-menu-cart-price">
+                ¥@Model.CartTotal.ToString("N0")
+            </strong>
+        </div>
+
+        <a asp-controller="Cart"
+           asp-action="Index"
+           class="so-menu-cart-button">
+            カートを確認する
+        </a>
+
+    </section>
+
+</div>
