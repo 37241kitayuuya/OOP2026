@@ -204,12 +204,4 @@ body {
     .mobile-cart-total {
         font-size: 1rem;
     }
-    
-    /*PCではカートをスクロールに追従させる*/
-    @media(min-with: 992px){
-        .so-product-photo{
-            position: sticky;
-            top: 90px;
-        }
-    }
 }
