@@ -4,8 +4,11 @@ using SelfOrderSystem.Data;          // AppDbContextを使用
 using SelfOrderSystem.Models;        // OrderStatusを使用
 using Microsoft.AspNetCore.SignalR;
 using SelfOrderSystem.Hubs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SelfOrderSystem.Controllers;
+
+[Authorize(Roles = "Staff")]
 
 public class StaffController : Controller {
     private readonly AppDbContext _db; // DBへの接続を担当 

@@ -17,6 +17,8 @@ public class AppDbContext : DbContext {
     public DbSet<Order> Orders => Set<Order>();
     public DbSet<OrderItem> OrderItems => Set<OrderItem>();
 
+    public DbSet<StaffUser> StaffUsers => Set<StaffUser>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
         base.OnModelCreating(modelBuilder);
 
@@ -29,5 +31,10 @@ public class AppDbContext : DbContext {
             .WithMany()
             .HasForeignKey(i => i.ProductId)
             .OnDelete(DeleteBehavior.Restrict); // 注文履歴を保護 
+
+        modelBuilder.Entity<StaffUser>()
+　　　　　　.HasIndex(u => u.UserName)
+　　　　　　.IsUnique();
+
     }
 }
